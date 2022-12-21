@@ -214,6 +214,24 @@ export const useProfileStore = defineStore("profile", {
     setCombatSimCoalitionPreferredType(value: string) {
       this.combat_simulation.coalition.preferredType = value;
     },
+    setFactoryEnhancementEnabled(value: boolean) {
+      this.factory.enhancement.enabled = value;
+    },
+    setFactoryDisassemblyEnabled(value: boolean) {
+      this.factory.disassembly.enabled = value;
+    },
+    setFactoryDisassembly4StarEnabled(value: boolean) {
+      this.factory.disassembly.disassemble4Star = value;
+    },
+    setFactoryEquipmentDisassemblyEnabled(value: boolean) {
+      this.factory.equipDisassembly.enabled = value;
+    },
+    setFactoryEquipmentDisassembly4StarEnabled(value: boolean) {
+      this.factory.equipDisassembly.disassemble4Star = value;
+    },
+    setFactoryAlwaysDisassembleAfterEnhance(value: boolean) {
+      this.factory.alwaysDisassembleAfterEnhance = value;
+    },
   },
   getters: {
     logisticsEnabled: (state): boolean => {
@@ -269,6 +287,24 @@ export const useProfileStore = defineStore("profile", {
     },
     combatSimCoalitionPreferredTYpe: (state): string => {
       return state.combat_simulation.coalition.preferredType;
+    },
+    factoryEnhancementEnabled: (state): boolean => {
+      return state.factory.enhancement.enabled;
+    },
+    factoryDisassemblyEnabled: (state): boolean => {
+      return state.factory.disassembly.enabled;
+    },
+    factoryDisassembly4StarEnabled: (state): boolean => {
+      return state.factory.disassembly.disassemble4Star;
+    },
+    factoryEquipmentDisassemblyEnabled: (state): boolean => {
+      return state.factory.equipDisassembly.enabled;
+    },
+    factoryEquipmentDisassembly4StarEnabled: (state): boolean => {
+      return state.factory.equipDisassembly.disassemble4Star;
+    },
+    factoryAlwaysDisassembleAfterEnhance: (state): boolean => {
+      return state.factory.alwaysDisassembleAfterEnhance;
     },
   },
 });
