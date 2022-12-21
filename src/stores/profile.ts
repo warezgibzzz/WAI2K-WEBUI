@@ -41,12 +41,48 @@ interface CombatSim {
   coalition: CoalitionSim;
 }
 
+interface FactoryNode {
+  enabled: boolean;
+}
+
+interface Disassembly extends FactoryNode {
+  disassemble4Star: boolean;
+}
+
+interface Factory {
+  enhancement: FactoryNode;
+  disassembly: Disassembly;
+  equipDisassembly: Disassembly;
+  alwaysDisassembleAfterEnhance: boolean;
+}
+
+interface StopTime {
+  enabled: boolean;
+  mode: string;
+  elapsedTime: string;
+  specificTime: string;
+}
+
+interface StopCount {
+  enabled: boolean;
+  sorties: number;
+}
+
+interface StopConfig {
+  enabled: boolean;
+  exitProgram: boolean;
+  time: StopTime;
+  count: StopCount;
+}
+
 interface Profile {
   logistics: LogisticsConfig;
   auto_battle: AutoBattle;
   combat: Combat;
   combat_report: CombatReport;
   combat_simulation: CombatSim;
+  factory: Factory;
+  stop: StopConfig;
 }
 
 export const useProfileStore = defineStore("profile", {
@@ -79,6 +115,34 @@ export const useProfileStore = defineStore("profile", {
       coalition: {
         enabled: false,
         preferredType: "RANDOM",
+      },
+    },
+    factory: {
+      alwaysDisassembleAfterEnhance: false,
+      enhancement: {
+        enabled: false,
+      },
+      disassembly: {
+        enabled: false,
+        disassemble4Star: false,
+      },
+      equipDisassembly: {
+        enabled: false,
+        disassemble4Star: false,
+      },
+    },
+    stop: {
+      enabled: false,
+      exitProgram: false,
+      time: {
+        enabled: false,
+        mode: "",
+        elapsedTime: "",
+        specificTime: "",
+      },
+      count: {
+        enabled: false,
+        sorties: 0,
       },
     },
   }),
