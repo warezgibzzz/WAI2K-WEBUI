@@ -1,0 +1,210 @@
+import { defineStore } from "pinia";
+
+interface LogisticsConfig {
+  enabled: boolean;
+  receiveMode: string;
+  assignments: { [n: string]: Array<number> };
+}
+
+interface AutoBattle {
+  enabled: boolean;
+}
+
+interface Dragger {
+  id: string;
+}
+
+interface Combat {
+  enabled: boolean;
+  map: string;
+  repairThreshold: number;
+  battleTimeout: number;
+  draggerSlot: number;
+  draggers: Dragger[];
+}
+
+interface CombatReport {
+  enabled: boolean;
+  type: string;
+}
+
+interface CoalitionSim {
+  enabled: boolean;
+  preferredType: string;
+}
+
+interface CombatSim {
+  enabled: boolean;
+  dataSim: string;
+  neuralFragment: string;
+  neuralEchelon: number;
+  coalition: CoalitionSim;
+}
+
+interface Profile {
+  logistics: LogisticsConfig;
+  auto_battle: AutoBattle;
+  combat: Combat;
+  combat_report: CombatReport;
+  combat_simulation: CombatSim;
+}
+
+export const useProfileStore = defineStore("profile", {
+  state: (): Profile => ({
+    logistics: {
+      enabled: false,
+      receiveMode: "",
+      assignments: {},
+    },
+    auto_battle: {
+      enabled: false,
+    },
+    combat: {
+      enabled: false,
+      map: "",
+      repairThreshold: 0,
+      battleTimeout: 0,
+      draggerSlot: 0,
+      draggers: [],
+    },
+    combat_report: {
+      enabled: false,
+      type: "",
+    },
+    combat_simulation: {
+      enabled: false,
+      dataSim: "ADVANCED",
+      neuralFragment: "ADVANCED",
+      neuralEchelon: 6,
+      coalition: {
+        enabled: false,
+        preferredType: "RANDOM",
+      },
+    },
+  }),
+  actions: {
+    async load() {
+      const result = await this.axios.get(this.$api + "/profile/current");
+      this.$patch(result.data);
+    },
+    setLogisticsEnabled(value: boolean) {
+      this.logistics.enabled = value;
+    },
+    setLogisticsReceiveMode(value: string) {
+      this.logistics.receiveMode = value;
+    },
+    setLogisticsAssignments(value: { [n: number]: number[] }) {
+      this.logistics.assignments = value;
+    },
+    getAssignment(index: string) {
+      return this.logistics.assignments[index];
+    },
+    setAssignment(index: string, assignment: number[]) {
+      this.logistics.assignments[index] = assignment;
+    },
+    setAutoBattleEnabled(value: boolean) {
+      this.auto_battle.enabled = value;
+    },
+    setCombatEnabled(value: boolean) {
+      this.combat.enabled = value;
+    },
+    setCombatMap(map: string) {
+      this.combat.map = map;
+    },
+    setCombatRepairThreshold(value: number) {
+      this.combat.repairThreshold = value;
+    },
+    setCombatBattleTimeout(value: number) {
+      this.combat.battleTimeout = value;
+    },
+    setCombatDraggerSlot(value: number) {
+      this.combat.draggerSlot = value;
+    },
+    setCombatDraggers(draggers: Dragger[]) {
+      this.combat.draggers = draggers;
+    },
+    swapCombatDraggers() {
+      this.combat.draggers = this.combat.draggers.reverse();
+    },
+    setCombatReportEnabled(value: boolean) {
+      this.combat_report.enabled = value;
+    },
+    setCombatReportType(value: string) {
+      this.combat_report.type = value;
+    },
+    setCombatSimDataEnabled(value: boolean) {
+      this.combat_simulation.enabled = value;
+    },
+    setCombatSimDataType(value: string) {
+      this.combat_simulation.dataSim = value;
+    },
+    setCombatSimNeuralType(value: string) {
+      this.combat_simulation.neuralFragment = value;
+    },
+    setCombatSimNeuralEchelon(value: number) {
+      this.combat_simulation.neuralEchelon = value;
+    },
+    setCombatSimCoalitionEnabled(value: boolean) {
+      this.combat_simulation.coalition.enabled = value;
+    },
+    setCombatSimCoalitionPreferredType(value: string) {
+      this.combat_simulation.coalition.preferredType = value;
+    },
+  },
+  getters: {
+    logisticsEnabled: (state): boolean => {
+      return state.logistics.enabled;
+    },
+    logisticsAssignments: (state): { [n: string]: Array<number> } => {
+      return state.logistics.assignments;
+    },
+    logisticsReceiveMode: (state): string => {
+      return state.logistics.receiveMode;
+    },
+    autoBattleEnabled: (state): boolean => {
+      return state.auto_battle.enabled;
+    },
+    combatEnabled: (state): boolean => {
+      return state.combat.enabled;
+    },
+    combatMap: (state): string => {
+      return state.combat.map;
+    },
+    combatRepairThreshold: (state): number => {
+      return state.combat.repairThreshold;
+    },
+    combatBattleTimeout: (state): number => {
+      return state.combat.battleTimeout;
+    },
+    combatDraggerSlot: (state): number => {
+      return state.combat.draggerSlot;
+    },
+    combatDraggers: (state): Dragger[] => {
+      return state.combat.draggers;
+    },
+    combatReportEnabled: (state): boolean => {
+      return state.combat_report.enabled;
+    },
+    combatReportType: (state): string => {
+      return state.combat_report.type;
+    },
+    combatSimDataEnabled: (state): boolean => {
+      return state.combat_simulation.enabled;
+    },
+    combatSimDataType: (state): string => {
+      return state.combat_simulation.dataSim;
+    },
+    combatSimNeuralType: (state): string => {
+      return state.combat_simulation.neuralFragment;
+    },
+    combatSimNeuralEchelon: (state): number => {
+      return state.combat_simulation.neuralEchelon;
+    },
+    combatSimCoalitionEnabled: (state): boolean => {
+      return state.combat_simulation.coalition.enabled;
+    },
+    combatSimCoalitionPreferredTYpe: (state): string => {
+      return state.combat_simulation.coalition.preferredType;
+    },
+  },
+});
