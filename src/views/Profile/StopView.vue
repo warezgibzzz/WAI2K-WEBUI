@@ -92,7 +92,13 @@
           min="0"
           max="1000"
           :value="elapsedTime.days"
-          @input="elapsedTime = updateInterval(elapsedTime, 'days', $event.target.value)"
+          @input="
+            elapsedTime = updateInterval(
+              elapsedTime,
+              'days',
+              $event.target.value
+            )
+          "
         />
         <input
           type="number"
@@ -102,7 +108,13 @@
           min="0"
           max="1000"
           :value="elapsedTime.hours"
-          @input="elapsedTime = updateInterval(elapsedTime, 'hours', $event.target.value)"
+          @input="
+            elapsedTime = updateInterval(
+              elapsedTime,
+              'hours',
+              $event.target.value
+            )
+          "
         />
         <input
           type="number"
@@ -112,7 +124,13 @@
           min="0"
           max="1000"
           :value="elapsedTime.minutes"
-          @input="elapsedTime = updateInterval(elapsedTime, 'minutes', $event.target.value)"
+          @input="
+            elapsedTime = updateInterval(
+              elapsedTime,
+              'minutes',
+              $event.target.value
+            )
+          "
         />
         <input
           type="number"
@@ -122,7 +140,13 @@
           min="0"
           max="1000"
           :value="elapsedTime.seconds"
-          @input="elapsedTime = updateInterval(elapsedTime, 'seconds', $event.target.value)"
+          @input="
+            elapsedTime = updateInterval(
+              elapsedTime,
+              'seconds',
+              $event.target.value
+            )
+          "
         />
       </span>
     </label>
@@ -139,7 +163,13 @@
           min="0"
           max="24"
           :value="specificTime.hours"
-          @input="specificTime = updateInterval(specificTime, 'hours', $event.target.value)"
+          @input="
+            specificTime = updateInterval(
+              specificTime,
+              'hours',
+              $event.target.value
+            )
+          "
         />
         <input
           type="number"
@@ -149,7 +179,13 @@
           min="0"
           max="59"
           :value="specificTime.minutes"
-          @input="specificTime = updateInterval(specificTime, 'minutes', $event.target.value)"
+          @input="
+            specificTime = updateInterval(
+              specificTime,
+              'minutes',
+              $event.target.value
+            )
+          "
         />
       </span>
     </label>
