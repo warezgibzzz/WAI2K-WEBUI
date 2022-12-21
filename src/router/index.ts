@@ -1,9 +1,12 @@
 import { createRouter, createWebHistory } from "vue-router";
+import type { RouteRecordNormalized } from "vue-router";
 import WelcomeView from "../views/WelcomeView.vue";
 import AboutView from "../views/AboutView.vue";
 import StatusView from "../views/StatusView.vue";
 import LogisticsView from "../views/Profile/LogisticsView.vue";
 import SidebarLayout from "../components/SidebarLayout.vue";
+import {useProfileStore} from "@/stores/profile";
+import {useConfigStore} from "@/stores/config";
 
 const router = createRouter({
   // @ts-ignore
@@ -38,6 +41,7 @@ const router = createRouter({
       name: "profile",
       meta: {
         title: "Profile",
+        store: useProfileStore,
       },
       component: SidebarLayout,
       props: { route: "profile" },
@@ -105,6 +109,7 @@ const router = createRouter({
       name: "preferences",
       meta: {
         title: "Preferences",
+        store: useConfigStore,
       },
       component: SidebarLayout,
       props: { route: "preferences" },
@@ -146,15 +151,16 @@ const router = createRouter({
   ],
 });
 
-// router.beforeEach((to) => {
-//   console.log(to);
-//   const containStore: RouteRecordNormalized | null =
-//     to.matched.find((item) => typeof item.meta?.store !== "undefined") || null;
-//   console.log(containStore);
-//   if (containStore) {
-//     // @ts-ignore
-//     containStore.meta.store().load();
-//   }
-// });
+router.beforeEach((to) => {
+  console.log(to);
+  const containStore: RouteRecordNormalized | null =
+    to.matched.find((item) => typeof item.meta?.store !== "undefined") || null;
+  console.log(containStore);
+
+  if (typeof containStore === "object") {
+    // @ts-ignore
+    containStore.meta.store().load();
+  }
+});
 
 export default router;

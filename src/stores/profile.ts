@@ -232,6 +232,30 @@ export const useProfileStore = defineStore("profile", {
     setFactoryAlwaysDisassembleAfterEnhance(value: boolean) {
       this.factory.alwaysDisassembleAfterEnhance = value;
     },
+    setStopEnabled(value: boolean) {
+      this.stop.enabled = value;
+    },
+    setStopExitProgram(value: boolean) {
+      this.stop.exitProgram = value;
+    },
+    setStopTimeEnabled(value: boolean) {
+      this.stop.time.enabled = value;
+    },
+    setStopTimeMode(value: string) {
+      this.stop.time.mode = value;
+    },
+    setStopTimeElapsedTime(value: string) {
+      this.stop.time.elapsedTime = value;
+    },
+    setStopTimeSpecificTime(value: string) {
+      this.stop.time.specificTime = value;
+    },
+    setStopCountEnabled(value: boolean) {
+      this.stop.count.enabled = value;
+    },
+    setStopCountSorties(value: number) {
+      this.stop.count.sorties = value;
+    },
   },
   getters: {
     logisticsEnabled: (state): boolean => {
@@ -305,6 +329,30 @@ export const useProfileStore = defineStore("profile", {
     },
     factoryAlwaysDisassembleAfterEnhance: (state): boolean => {
       return state.factory.alwaysDisassembleAfterEnhance;
+    },
+    stopEnabled: (state): boolean => {
+      return state.stop.enabled;
+    },
+    stopExitProgram: (state): boolean => {
+      return state.stop.exitProgram;
+    },
+    stopTimeEnabled: (state): boolean => {
+      return state.stop.time.enabled;
+    },
+    stopTimeMode: (state): string => {
+      return state.stop.time.mode;
+    },
+    stopTimeElapsedTime: (state): string => {
+      return state.stop.time.elapsedTime;
+    },
+    stopTimeSpecificTime: (state): string => {
+      return state.stop.time.specificTime;
+    },
+    stopCountEnabled: (state): boolean => {
+      return state.stop.count.enabled;
+    },
+    stopCountSorties: (state): number => {
+      return state.stop.count.sorties;
     },
   },
 });

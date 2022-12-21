@@ -98,7 +98,6 @@ const { combatSimData, combatSimNeural, combatSimCoalition } =
   useClassifierStore();
 
 const store = useProfileStore();
-store.load();
 
 const dataEnabled = computed({
   get() {

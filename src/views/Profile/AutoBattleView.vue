@@ -27,8 +27,6 @@ import { computed } from "vue";
 
 const store = useProfileStore();
 
-store.load();
-
 const enabled = computed({
   get() {
     return store.autoBattleEnabled;

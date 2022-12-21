@@ -17,27 +17,27 @@
       <span class="label-text">Map</span>
       <select class="select w-1/4 max-w-xs" v-model="map">
         <optgroup label="Normal">
-          <option v-for="(mapItem, key) in maps.normal" :key="key">
+          <option v-for="(mapItem, key) in sortedMaps.normal" :key="key">
             {{ mapItem.name }}
           </option>
         </optgroup>
         <optgroup label="Emergency">
-          <option v-for="(mapItem, key) in maps.emergency" :key="key">
+          <option v-for="(mapItem, key) in sortedMaps.emergency" :key="key">
             {{ mapItem.name }}
           </option>
         </optgroup>
         <optgroup label="Night">
-          <option v-for="(mapItem, key) in maps.night" :key="key">
+          <option v-for="(mapItem, key) in sortedMaps.night" :key="key">
             {{ mapItem.name }}
           </option>
         </optgroup>
         <optgroup label="Campaign">
-          <option v-for="(mapItem, key) in maps.campaign" :key="key">
+          <option v-for="(mapItem, key) in sortedMaps.campaign" :key="key">
             {{ mapItem.name }}
           </option>
         </optgroup>
         <optgroup label="Event">
-          <option v-for="(mapItem, key) in maps.event" :key="key">
+          <option v-for="(mapItem, key) in sortedMaps.event" :key="key">
             {{ mapItem.name }}
           </option>
         </optgroup>
@@ -127,12 +127,30 @@
 </template>
 <script setup lang="ts">
 import { computed, ref } from "vue";
+import natsort from "natsort";
 import { useProfileStore } from "@/stores/profile";
 import { useClassifierStore } from "@/stores/classifiers";
 import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
 const store = useProfileStore();
 const { dolls, maps } = useClassifierStore();
-store.load();
+const sorter = natsort();
+const sortedMaps = computed({
+  get() {
+    const normal = ref(maps.normal);
+    const emergency = ref(maps.emergency);
+    const night = ref(maps.night);
+    const campaign = ref(maps.campaign);
+    const event = ref(maps.event);
+    return {
+      normal: normal.value.sort((a, b) => sorter(a.name, b.name)),
+      emergency: emergency.value.sort((a, b) => sorter(a.name, b.name)),
+      night: night.value.sort((a, b) => sorter(a.name, b.name)),
+      campaign: campaign.value.sort((a, b) => sorter(a.name, b.name)),
+      event: event.value.sort((a, b) => sorter(a.name, b.name)),
+    };
+  },
+  set() {},
+});
 
 const enabled = computed({
   get() {

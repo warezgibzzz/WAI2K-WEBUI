@@ -34,8 +34,6 @@ import {useClassifierStore} from "@/stores/classifiers";
 const store = useProfileStore();
 const { combatReportTypeList } = useClassifierStore();
 
-store.load();
-
 const enabled = computed({
   get() {
     return store.combatReportEnabled;

@@ -55,8 +55,6 @@ const { logisticsReceiveModeList } = useClassifierStore();
 
 const store = useProfileStore();
 
-store.load();
-
 const enabled = computed({
   get() {
     return store.logisticsEnabled;

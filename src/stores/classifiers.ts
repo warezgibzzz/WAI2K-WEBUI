@@ -40,6 +40,7 @@ interface Classifiers {
   combatSimNeural: string[];
   combatSimCoalition: string[];
   maps: MapClassifier;
+  timeStopType: string[];
 }
 
 export const useClassifierStore = defineStore("classifiers", {
@@ -60,6 +61,7 @@ export const useClassifierStore = defineStore("classifiers", {
       event: [],
       logistics: [],
     },
+    timeStopType: [],
   }),
   actions: {
     async load() {
