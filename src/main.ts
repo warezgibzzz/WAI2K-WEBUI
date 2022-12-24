@@ -22,7 +22,7 @@ const store = createPinia();
 
 declare module "pinia" {
   export interface PiniaCustomProperties {
-    $api: String;
+    $api: string;
     axios: AxiosStatic;
   }
 }

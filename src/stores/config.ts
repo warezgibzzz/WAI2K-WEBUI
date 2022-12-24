@@ -1,4 +1,4 @@
-import {defineStore} from "pinia";
+import { defineStore } from "pinia";
 
 interface ScriptConfig {
   loopDelay: number;
@@ -68,6 +68,49 @@ export const useConfigStore = defineStore("config", {
       onStopCondition: false,
     },
   }),
-  actions: {},
-  getters: {},
+  actions: {
+    async load() {
+      const result = await this.axios.get(this.$api);
+      this.$patch(result.data);
+    },
+    async checkApiKey() {
+      console.log(this.api_key);
+      try {
+        const result = await this.axios.post(this.$api + "/yuubot/apikey", {
+          apiKey: this.api_key,
+        });
+        return "success";
+      } catch (e) {
+        // @ts-ignore
+        if (e.response?.status === 406) {
+          return "invalid";
+        }
+        // @ts-ignore
+        if (e.response?.status === 406) {
+          return "invalid";
+        }
+        console.log(e);
+      }
+    },
+    setApiKey(value: string) {
+      this.api_key = value;
+    },
+    setNotificationOnRestart(value: boolean) {
+      this.notifications_config.onRestart = value;
+    },
+    setNotificationOnStopCondition(value: boolean) {
+      this.notifications_config.onStopCondition = value;
+    },
+  },
+  getters: {
+    apiKey: (state): string => {
+      return state.api_key;
+    },
+    notificationOnRestart: (state): boolean => {
+      return state.notifications_config.onRestart;
+    },
+    notificationOnStopCondition: (state): boolean => {
+      return state.notifications_config.onStopCondition;
+    },
+  },
 });
