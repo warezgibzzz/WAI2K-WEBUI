@@ -5,8 +5,8 @@ import AboutView from "../views/AboutView.vue";
 import StatusView from "../views/StatusView.vue";
 import LogisticsView from "../views/Profile/LogisticsView.vue";
 import SidebarLayout from "../components/SidebarLayout.vue";
-import {useProfileStore} from "@/stores/profile";
-import {useConfigStore} from "@/stores/config";
+import { useProfileStore } from "@/stores/profile";
+import { useConfigStore } from "@/stores/config";
 
 const router = createRouter({
   // @ts-ignore
@@ -154,10 +154,10 @@ const router = createRouter({
 router.beforeEach((to) => {
   console.log(to);
   const containStore: RouteRecordNormalized | null =
-    to.matched.find((item) => typeof item.meta?.store !== "undefined") || null;
+    to.matched.find((item) => item.meta !== undefined) || null;
   console.log(containStore);
 
-  if (typeof containStore === "object") {
+  if (containStore?.meta?.store) {
     // @ts-ignore
     containStore.meta.store().load();
   }

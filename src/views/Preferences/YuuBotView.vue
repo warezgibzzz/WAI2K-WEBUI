@@ -6,9 +6,9 @@
         <span class="label-text">API key</span>
         <input
           type="text"
-          class="input w-1/2 max-w-md"
+          class="input input-bordered w-1/2 max-w-md"
           v-model="apiKey"
-          @change="store.checkApiKey()"
+          :class="[apiKeyClass]"
         />
       </label>
     </div>
@@ -44,7 +44,7 @@
       <legend class="ml-1 w-full">
         Test message
         <button
-          @click="() => 'test'"
+          @click.prevent="() => sendTestMessage()"
           class="btn btn-primary btn-xs float-right"
         >
           Send
@@ -56,27 +56,50 @@
           type="text"
           class="input w-full"
           placeholder="Message title"
-          ref=""
+          ref="title"
         />
       </div>
       <div class="form-control">
-        <textarea class="textarea h-24" placeholder="Message body"></textarea>
+        <textarea
+          class="textarea h-24"
+          placeholder="Message body"
+          ref="message"
+        ></textarea>
       </div>
     </fieldset>
   </form>
 </template>
 <script setup lang="ts">
 import { useConfigStore } from "@/stores/config";
-import { computed } from "vue";
+import { computed, reactive, ref } from "vue";
 
 const store = useConfigStore();
+
+const title = ref(null);
+const message = ref(null);
+
+const htmlClasses = reactive({
+  apiKeyStatus: "",
+});
+
+const apiKeyClass = computed({
+  get() {
+    return htmlClasses.apiKeyStatus;
+  },
+  set(value) {
+    htmlClasses.apiKeyStatus = "input-" + value;
+  },
+});
 
 const apiKey = computed({
   get() {
     return store.apiKey;
   },
-  set(value) {
+  async set(value) {
     store.setApiKey(value);
+    store.checkApiKey().then((status) => {
+      apiKeyClass.value = status;
+    });
   },
 });
 const notificationOnRestart = computed({
@@ -95,4 +118,9 @@ const notificationOnStopCondition = computed({
     store.setNotificationOnStopCondition(value);
   },
 });
+
+const sendTestMessage = () => {
+  // @ts-ignore
+  store.sendTestMessage(title.value.value, message.value.value);
+};
 </script>

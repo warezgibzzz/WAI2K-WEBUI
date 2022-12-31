@@ -76,19 +76,30 @@ export const useConfigStore = defineStore("config", {
     async checkApiKey() {
       console.log(this.api_key);
       try {
-        const result = await this.axios.post(this.$api + "/yuubot/apikey", {
+        await this.axios.post(this.$api + "/yuubot/apikey", {
           apiKey: this.api_key,
         });
         return "success";
       } catch (e) {
         // @ts-ignore
         if (e.response?.status === 406) {
-          return "invalid";
+          return "warning";
         }
         // @ts-ignore
-        if (e.response?.status === 406) {
-          return "invalid";
+        if (e.response?.status === 500) {
+          return "error";
         }
+      }
+      return "";
+    },
+    async sendTestMessage(title: string = "", message: string = "") {
+      try {
+        await this.axios.post(this.$api + "/yuubot/message", {
+          apiKey: this.api_key,
+          title: title,
+          message: message,
+        });
+      } catch (e) {
         console.log(e);
       }
     },
