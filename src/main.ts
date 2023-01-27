@@ -29,6 +29,7 @@ declare module "pinia" {
 
 app.use(VueAxios, Axios);
 app.provide("axios", app.config.globalProperties.axios);
+app.provide("$api", "http://localhost:17555");
 store.use(({ store }) => {
   store.axios = app.config.globalProperties.axios;
   store.$api = "http://localhost:17555";

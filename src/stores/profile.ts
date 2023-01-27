@@ -83,10 +83,12 @@ interface Profile {
   combat_simulation: CombatSim;
   factory: Factory;
   stop: StopConfig;
+  name: string;
 }
 
 export const useProfileStore = defineStore("profile", {
   state: (): Profile => ({
+    name: "Default",
     logistics: {
       enabled: false,
       receiveMode: "",
@@ -150,6 +152,7 @@ export const useProfileStore = defineStore("profile", {
     async load() {
       const result = await this.axios.get(this.$api + "/profile/current");
       this.$patch(result.data);
+      this.name = result.data.name_property.value;
     },
     setLogisticsEnabled(value: boolean) {
       this.logistics.enabled = value;

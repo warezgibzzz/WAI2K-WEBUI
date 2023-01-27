@@ -3,13 +3,13 @@
     <div class="basis-1/4 shadow-xl mb-8 p-8 bg-neutral rounded-md">
       <ul class="menu w-full" v-if="childrenRoutes.length > 0">
         <li v-for="link in childrenRoutes" :key="link.name">
-          <Link
+          <RouterLink
             :to="{ name: link.name }"
             active-class="active rounded-md"
             class="hover:rounded-md focus:rounded-md"
           >
-            {{ link.meta.title }}
-          </Link>
+            {{ link.meta?.title }}
+          </RouterLink>
         </li>
       </ul>
     </div>
@@ -21,7 +21,6 @@
 
 <script setup lang="ts">
 import { computed, defineProps, reactive } from "vue";
-import Link from "@/components/Link.vue";
 import { useRouter } from "vue-router";
 import type { Router, RouteRecordRaw } from "vue-router";
 interface Props {

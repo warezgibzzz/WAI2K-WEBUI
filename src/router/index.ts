@@ -154,10 +154,10 @@ const router = createRouter({
 router.beforeEach((to) => {
   console.log(to);
   const containStore: RouteRecordNormalized | null =
-    to.matched.find((item) => item.meta !== undefined) || null;
+    to.matched.find((item) => item.meta.store !== undefined) || null;
   console.log(containStore);
 
-  if (containStore?.meta?.store) {
+  if (containStore) {
     // @ts-ignore
     containStore.meta.store().load();
   }

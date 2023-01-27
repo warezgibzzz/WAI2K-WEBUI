@@ -29,7 +29,7 @@
       class="echelon btn btn-primary btn-sm"
       v-for="(assignment, key, index) in assignments"
       :key="index"
-      @click="openAssignment(key)"
+      @click="openAssignment(key.toString())"
     >
       <span class="mr-2">Echelon #{{ key }}</span>
       <font-awesome-icon icon="fa-solid fa-arrow-up-right-from-square" />
@@ -82,12 +82,12 @@ const assignments = computed({
   },
 });
 
-const selectedAssignmentIndex: Ref<string | null> = ref(null);
+const selectedAssignmentIndex: Ref<string | undefined> = ref(undefined);
 
 const openAssignment = (key: string) => {
   selectedAssignmentIndex.value = key;
 };
 const cancelAssignment = () => {
-  selectedAssignmentIndex.value = null;
+  selectedAssignmentIndex.value = undefined;
 };
 </script>

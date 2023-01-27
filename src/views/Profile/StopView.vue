@@ -96,7 +96,7 @@
             elapsedTime = updateInterval(
               elapsedTime,
               'days',
-              $event.target.value
+              $event
             )
           "
         />
@@ -112,7 +112,7 @@
             elapsedTime = updateInterval(
               elapsedTime,
               'hours',
-              $event.target.value
+              $event
             )
           "
         />
@@ -128,7 +128,7 @@
             elapsedTime = updateInterval(
               elapsedTime,
               'minutes',
-              $event.target.value
+              $event
             )
           "
         />
@@ -144,7 +144,7 @@
             elapsedTime = updateInterval(
               elapsedTime,
               'seconds',
-              $event.target.value
+              $event
             )
           "
         />
@@ -167,7 +167,7 @@
             specificTime = updateInterval(
               specificTime,
               'hours',
-              $event.target.value
+              $event
             )
           "
         />
@@ -183,7 +183,7 @@
             specificTime = updateInterval(
               specificTime,
               'minutes',
-              $event.target.value
+              $event
             )
           "
         />
@@ -197,14 +197,18 @@ import { useProfileStore } from "@/stores/profile";
 import { useClassifierStore } from "@/stores/classifiers";
 import { computed } from "vue";
 
+interface InputEvent extends Event {
+  target: HTMLInputElement;
+}
+
 const store = useProfileStore();
 const { timeStopType } = useClassifierStore();
 
 const updateInterval = (
   object: Duration,
   property: string,
-  value: number
-): Duration => object.set({ [property]: value });
+  event: Event
+): Duration => object.set({ [property]: (event as InputEvent).target.value });
 
 const enabled = computed({
   get() {

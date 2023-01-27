@@ -12,7 +12,7 @@
         @click.self="closeModal"
         >✕</label
       >
-      <p class="text-lg font-bold py-4 max-w-full">
+      <p class="text-lg font-bold pb-4 max-w-full">
         Echelon #{{ index }} assignments
       </p>
       <span class="grid grid-cols-8 gap-1">
@@ -51,7 +51,7 @@ import type { ComputedRef } from "vue";
 import { useProfileStore } from "@/stores/profile";
 
 interface Props {
-  index?: string;
+  index: string;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars

@@ -12,61 +12,64 @@
       </RouterLink>
       <ul class="menu menu-horizontal p-0">
         <li>
-          <Link
+          <RouterLink
             :to="{ name: 'welcome' }"
-            icon="fa-solid fa-home"
             active-class="active rounded-md"
             class="hover:rounded-md focus:rounded-md"
           >
+            <font-awesome-icon icon="fa-solid fa-home" />
             Welcome
-          </Link>
+          </RouterLink>
         </li>
         <li>
-          <Link
+          <RouterLink
             :to="{ name: 'status' }"
-            icon="fa-solid fa-circle-info"
             active-class="active rounded-md"
             class="hover:rounded-md focus:rounded-md"
           >
+            <font-awesome-icon icon="fa-solid fa-circle-info" />
             Status
-          </Link>
+          </RouterLink>
         </li>
         <li>
-          <Link
+          <RouterLink
             :to="{ name: 'logistics' }"
-            icon="fa-solid fa-user"
             active-class="active rounded-md"
             class="hover:rounded-md focus:rounded-md"
           >
+            <font-awesome-icon icon="fa-solid fa-user" />
             Profile
-          </Link>
+          </RouterLink>
         </li>
         <li>
-          <Link
+          <RouterLink
             :to="{ name: 'restart' }"
-            icon="fa-solid fa-wrench"
             active-class="active rounded-md"
             class="hover:rounded-md focus:rounded-md"
           >
+            <font-awesome-icon icon="fa-solid fa-wrench" />
             Preferences
-          </Link>
+          </RouterLink>
         </li>
         <li>
-          <Link
+          <RouterLink
             :to="{ name: 'about' }"
             icon="fa-solid fa-circle-question"
             active-class="active rounded-md"
             class="hover:rounded-md focus:rounded-md"
           >
+            <font-awesome-icon icon="fa-solid fa-circle-question" />
             About
-          </Link>
+          </RouterLink>
         </li>
       </ul>
     </div>
     <div class="navbar-center"></div>
-    <div class="navbar-end"></div>
+    <div class="navbar-end">
+      <ProfileSelector class="dropdown dropdown-left" />
+    </div>
   </nav>
 </template>
 <script setup lang="ts">
-import Link from "@/components/Link.vue";
+import ProfileSelector from "@/components/ProfileSelector.vue";
 </script>

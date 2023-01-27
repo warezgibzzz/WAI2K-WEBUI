@@ -71,23 +71,21 @@
 </template>
 <script setup lang="ts">
 import { useConfigStore } from "@/stores/config";
-import { computed, reactive, ref } from "vue";
+import {computed, onMounted, reactive, ref} from "vue";
 
 const store = useConfigStore();
 
 const title = ref(null);
 const message = ref(null);
 
-const htmlClasses = reactive({
-  apiKeyStatus: "",
-});
+const apiKeyStatus = ref("");
 
 const apiKeyClass = computed({
   get() {
-    return htmlClasses.apiKeyStatus;
+    return apiKeyStatus.value;
   },
   set(value) {
-    htmlClasses.apiKeyStatus = "input-" + value;
+    apiKeyStatus.value = "input-" + value;
   },
 });
 
@@ -102,6 +100,13 @@ const apiKey = computed({
     });
   },
 });
+
+onMounted(() => {
+  store.checkApiKey().then((status) => {
+    apiKeyClass.value = status;
+  });
+});
+
 const notificationOnRestart = computed({
   get() {
     return store.notificationOnRestart;

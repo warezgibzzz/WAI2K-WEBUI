@@ -76,10 +76,12 @@ export const useConfigStore = defineStore("config", {
     async checkApiKey() {
       console.log(this.api_key);
       try {
-        await this.axios.post(this.$api + "/yuubot/apikey", {
+        const res = await this.axios.post(this.$api + "/yuubot/apikey", {
           apiKey: this.api_key,
         });
-        return "success";
+        if (res.status === 200) {
+          return "success";
+        }
       } catch (e) {
         // @ts-ignore
         if (e.response?.status === 406) {
